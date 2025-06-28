@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Bitcoin, Circle, Search, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Asset {
   id: string;
@@ -22,6 +21,7 @@ interface Asset {
 }
 
 const Buy = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
   const [filterType, setFilterType] = useState<"all" | "cryptocurrency" | "token">("all");
@@ -142,6 +142,11 @@ const Buy = () => {
       currency: 'USD',
       minimumFractionDigits: price < 1 ? 4 : 2
     }).format(price);
+  };
+
+  const handleContinueToPurchase = () => {
+    const selectedAssetsParam = encodeURIComponent(JSON.stringify(selectedAssets));
+    navigate(`/purchase?assets=${selectedAssetsParam}`);
   };
 
   return (
@@ -281,7 +286,7 @@ const Buy = () => {
                 <Button variant="outline" onClick={() => setSelectedAssets([])}>
                   Clear
                 </Button>
-                <Button>
+                <Button onClick={handleContinueToPurchase}>
                   Continue to Purchase
                 </Button>
               </div>
