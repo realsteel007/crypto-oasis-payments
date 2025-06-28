@@ -2,17 +2,45 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Bitcoin, Coins, CreditCard, Banknote, Shield, Zap } from "lucide-react";
+import { Bitcoin, Coins, CreditCard, Banknote, Shield, Zap, Circle } from "lucide-react";
 
 const Index = () => {
   const supportedCryptos = [
-    { name: "Bitcoin", symbol: "BTC", network: "Bitcoin Network" },
-    { name: "Ethereum", symbol: "ETH", network: "Ethereum Chain" },
-    { name: "Binance Coin", symbol: "BNB", network: "BSC Chain" },
-    { name: "Tron", symbol: "TRX", network: "Tron Network" },
+    { 
+      name: "Bitcoin", 
+      symbol: "BTC", 
+      network: "Bitcoin Network",
+      icon: Bitcoin,
+      color: "text-orange-500"
+    },
+    { 
+      name: "Ethereum", 
+      symbol: "ETH", 
+      network: "Ethereum Chain",
+      icon: Circle,
+      color: "text-blue-600"
+    },
+    { 
+      name: "Binance Coin", 
+      symbol: "BNB", 
+      network: "BSC Chain",
+      icon: Circle,
+      color: "text-yellow-500"
+    },
+    { 
+      name: "Tron", 
+      symbol: "TRX", 
+      network: "Tron Network",
+      icon: Circle,
+      color: "text-red-500"
+    },
   ];
 
-  const tokenStandards = ["ERC-20", "TRC-20", "BEP-20"];
+  const tokenStandards = [
+    { name: "ERC-20", description: "Ethereum tokens", color: "text-blue-600" },
+    { name: "TRC-20", description: "Tron tokens", color: "text-red-500" },
+    { name: "BEP-20", description: "BSC tokens", color: "text-yellow-500" }
+  ];
   
   const paymentMethods = [
     { name: "Cryptocurrency", icon: Bitcoin, description: "Direct crypto payments" },
@@ -79,28 +107,37 @@ const Index = () => {
           Supported Cryptocurrencies
         </h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {supportedCryptos.map((crypto) => (
-            <Card key={crypto.symbol} className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">{crypto.name}</CardTitle>
-                <CardDescription>{crypto.network}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Badge variant="secondary" className="text-lg font-semibold">
-                  {crypto.symbol}
-                </Badge>
-              </CardContent>
-            </Card>
-          ))}
+          {supportedCryptos.map((crypto) => {
+            const IconComponent = crypto.icon;
+            return (
+              <Card key={crypto.symbol} className="text-center hover:shadow-lg transition-shadow border-2 hover:border-blue-200">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-center mb-3">
+                    <IconComponent className={`h-12 w-12 ${crypto.color}`} />
+                  </div>
+                  <CardTitle className="text-lg">{crypto.name}</CardTitle>
+                  <CardDescription className="text-sm">{crypto.network}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Badge variant="secondary" className="text-lg font-semibold px-3 py-1">
+                    {crypto.symbol}
+                  </Badge>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
         
         <div className="text-center">
-          <h4 className="text-xl font-semibold text-gray-900 mb-4">Token Standards</h4>
-          <div className="flex justify-center space-x-4">
+          <h4 className="text-xl font-semibold text-gray-900 mb-6">Supported Token Standards</h4>
+          <div className="flex justify-center flex-wrap gap-4">
             {tokenStandards.map((standard) => (
-              <Badge key={standard} variant="outline" className="text-sm">
-                {standard}
-              </Badge>
+              <div key={standard.name} className="flex flex-col items-center">
+                <Badge variant="outline" className={`text-base font-semibold px-4 py-2 ${standard.color} border-2`}>
+                  {standard.name}
+                </Badge>
+                <span className="text-sm text-gray-500 mt-1">{standard.description}</span>
+              </div>
             ))}
           </div>
         </div>
