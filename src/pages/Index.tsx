@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bitcoin, Coins, CreditCard, Banknote, Shield, Zap, Circle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const supportedCryptos = [
@@ -92,9 +93,11 @@ const Index = () => {
           Purchase Bitcoin, Ethereum, BNB, Tron, and popular tokens using crypto or traditional payment methods like CashApp, Venmo, and bank transfers.
         </p>
         <div className="space-x-4">
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-            Start Buying Crypto
-          </Button>
+          <Link to="/buy">
+            <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+              Start Buying Crypto
+            </Button>
+          </Link>
           <Button size="lg" variant="outline">
             Learn More
           </Button>
